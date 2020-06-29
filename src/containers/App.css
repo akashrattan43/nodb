@@ -1,0 +1,32 @@
+@font-face {
+  font-family: 'circous';
+  font-style: normal;
+  font-weight: normal;
+  src: local('circous'), url('circous.otf') format('opetype');
+}
+h1{
+  font-family: 'circous';
+  color: lightskyblue;
+  font-weight: 200;
+}
+.myButton {
+box-shadow: -1px 2px 0px 0px #8125cc;
+background-color:#0c9c95;
+border-radius:26px;
+border:3px solid #942dad;
+display:inline-block;
+cursor:pointer;
+color:#ffffff;
+font-family:Arial;
+font-size:17px;
+padding:19px 41px;
+text-decoration:none;
+text-shadow:-2px 1px 12px #2f6627;
+}
+.myButton:hover {
+background-color:#74dfd0;
+}
+.myButton:active {
+position:relative;
+top:1px;
+}
