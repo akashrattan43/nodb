@@ -14,7 +14,7 @@ app.get('/api/customers', (req, res) => {
             },
             {
             id: 2,
-            name: 'holy melnf',
+            name: 'h2go flask',
             username: 'holy',
             email: 'holymelnf@gmail.com'
             },
