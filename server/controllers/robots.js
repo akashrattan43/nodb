@@ -90,5 +90,3 @@ export const robots = [
     email: 'whothis@gmail.com'
   }
 ];
-
-export default robots;
