@@ -3,6 +3,7 @@ import CardList from '../components/cardList';
 import SearchBox from '../components/SearchBox';
 import './App.css';
 import Scroll from '../components/Scroll';
+import Footer from '../components/Footer'
 
 
 class App extends Component {
@@ -20,7 +21,8 @@ class App extends Component {
 			})
 			.then(users => {
 				this.setState({ robots: users });
-			})
+			}) 
+			.catch (err => console.log(err))
 
 	}
 	onSearchChange = (event) => {
@@ -28,7 +30,14 @@ class App extends Component {
 			searchField: event.target.value
 		})
 	}
-
+	handleDelete = () => {
+		alert('Button Clicked!')
+	}
+	handleDelete = robotId => {
+		const robots = this.state.robots.filter (robot => robot.id !== robotId);
+		this.setState({robots:robots});
+	}
+	
 	render() {
 		const { robots, searchField } = this.state;
 		const filteredRobots = robots.filter(robot => {
@@ -39,15 +48,17 @@ class App extends Component {
 			return <h1>Loading</h1>
 		} else {
 			return (
-				<div className='tc'>
+				<main className='tc'>
 					<h1 className='f1'>Office Employees</h1>
 					<SearchBox searchChange={this.onSearchChange} />
 					<Scroll>
 						<CardList robots={filteredRobots} />
+						
+						<button className='delete' onClick={this.handleDelete}>Delete</button>
 					</Scroll> 
-					
 					<button className = " myButton"onClick={() => window.location.reload(false)}>RESET</button>
-				</div>
+					<Footer />
+				</main>
 			)
 		}
 	}

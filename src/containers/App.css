@@ -8,6 +8,9 @@ h1{
   font-family: 'circous';
   color: lightskyblue;
   font-weight: 200;
+  justify-content: center;
+  flex-direction: row;
+  flex: auto;
 }
 .myButton {
 box-shadow: -1px 2px 0px 0px #8125cc;
@@ -22,10 +25,15 @@ font-size:17px;
 padding:19px 41px;
 text-decoration:none;
 text-shadow:-2px 1px 12px #2f6627;
+flex-direction: column;
 }
 .myButton:hover {
 background-color:#74dfd0;
+flex-grow: 4;
+flex-flow: column wrap;
+flex-shrink: 4;
 }
+
 .myButton:active {
 position:relative;
 top:1px;

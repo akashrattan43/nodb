@@ -1,105 +1,12 @@
 // const robocontrol = require('./controllers/robocontrol');
-
+const rbc = require('./controllers/roboControllers')
 const express = require('express')
 const app = express();
 
-app.use(express.json());
-app.get('/api/customers', (req, res) => {
-    const customers = [
-        {
-            id: 1,
-            name: 'sony singh',
-            username: 'sony',
-            email: 'Sonysingh@gmail.com'
-            },
-            {
-            id: 2,
-            name: 'h2go flask',
-            username: 'holy',
-            email: 'holymelnf@gmail.com'
-            },
-            {
-            id: 3,
-            name: 'yo yo',
-            username: 'yo',
-            email: 'yoyo@gmail.com'
-            },
-            {
-            id: 4,
-            name: 'john cena',
-            username: 'john',
-            email: 'johncena@gmail.com'
-            },
-            {
-            id: 5,
-            name: 'dwane johnson ',
-            username: 'dwane',
-            email: 'rocktheactor@gmail.com'
-            },
-            {
-            id: 6,
-            name: 'dr stranger',
-            username: 'doctor',
-            email: 'doctor@gmail.com'
-            },
-            {
-            id: 7,
-            name: 'spiderman peter',
-            username: 'spiderman',
-            email: 'spider@gmail.com'
-            },
-            {
-            id: 8,
-            name: 'batman almighty',
-            username: 'batman',
-            email: 'batman@gmail.com'
-            },
-            {
-            id: 9,
-            name: 'clark superman',
-            username: 'clark',
-            email: 'superman@gmail.com'
-            },
-            {
-            id: 10,
-            name: 'flash bary',
-            username: 'flash',
-            email: 'theflash@gmail.com'
-            },
-            {
-            id: 11,
-            name: 'green latern',
-            username: 'green',
-            email: 'latern@gmail.com'
-            },
-            {
-            id: 12,
-            name: 'johnny depp',
-            username: 'johnny',
-            email: 'depp@gmail.com'
-            },
-            {
-            id: 13,
-            name: 'lucifer hell king',
-            username: 'luci',
-            email: 'kingofhell@gmail.com'
-            },
-            {
-            id: 14,
-            name: 'undertaker wwe',
-            username: 'undertaker',
-            email: 'oldguy@gmail.com'
-            },
-            {
-            id: 15,
-            name: 'who this',
-            username: 'who',
-            email: 'whothis@gmail.com'
-            }
-        ];
 
-        res.json(customers)
-})
+app.use(express.json());
+app.get('/api/customers', rbc.getAll)
+
 
 
 

@@ -1,0 +1,10 @@
+.footer {
+    flex-shrink: 0;
+    /* text-align: center; */
+    background-color: blue;
+    color: white;
+    justify-content: center;
+    /* flex-flow: column;
+    flex-wrap: wrap;
+    align-items: stretch; */
+}
