@@ -7,7 +7,4 @@ const app = express();
 app.use(express.json());
 app.get('/api/customers', rbc.getAll)
 
-
-
-
-app.listen(3999, () => console.log('Server is Running on 3999'))
+module.exports = app;

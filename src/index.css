@@ -4,3 +4,16 @@ body {
   font-family: sans-serif;
   background: linear-gradient(to left, rgb(68, 102, 194) 0%, rgb(219, 80, 99) 100%);
 }
+
+.flexbox{
+  margin: 2%;
+  padding: 2%;
+  height: auto;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  text-align: center;
+  background-color: aliceblue;
+  border-radius: 2%;
+}
+.flexbox:hover {
+  transform: scale(1.1);
+}
