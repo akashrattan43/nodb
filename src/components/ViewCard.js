@@ -26,16 +26,7 @@ class ViewCard extends Component {
     }
 
     deleteHandler (id) {
-        fetch(`http://localhost:3999/api/employee/${this.props.match.params.id}`,{
-            headers: new Headers(
-                {
-                    "Access-Control-Allow-Origin" : "*",
-                    "Access-Control-Allow-Credentials" : true,
-                    "Access-Control-Allow-Methods" : "DELETE",
-                    "Access-Control-Allow-Headers" : "Origin, Content-Type, Accept"
-                }
-            ),
-        })
+        fetch(`http://localhost:3999/api/employee/${this.props.match.params.id}`)
         .then(response => {
             return response.json();
         })
@@ -51,14 +42,6 @@ class ViewCard extends Component {
     handleSubmission (){
         fetch(`http://localhost:3999/api/employee/edit/${this.state.id}`, {
             method: "patch",
-            headers: new Headers(
-                {
-                    "Access-Control-Allow-Origin" : "*",
-                    "Access-Control-Allow-Credentials" : true,
-                    "Access-Control-Allow-Methods" : "PATCH",
-                    "Access-Control-Allow-Headers" : "Origin, Content-Type, Accept"
-                }
-            ),
             body: {
                 "name": this.state.name
             },
