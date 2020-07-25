@@ -125,20 +125,23 @@ const customers = [
     */
     const createCustomer = (req , res ) => {
         console.log('customer created')
-        const newCustomers = customer.push(res.body)
+        const newCustomers = customers.push(res.body)
         return res.json(newCustomers)
 
     }
 
     /**
      * Let user edit an employee
-     * @param {object} req
+     * @param {object} req the body is only name
      * @param {object} res
      * @returns {object} json response
     */
    const editCustomer = (req , res ) => {
-    console.log('customer created')
-    const newCustomers = customer.push(res.body)
+    let id = req.params.id
+    
+    const editCustomer = customers.filter((customer) => {
+        customer.id === id ? customer[0].name = req.body : console.log('nothing to edit')
+    })
     return res.json(newCustomers)
 
 }
