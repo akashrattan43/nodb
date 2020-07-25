@@ -1,4 +1,6 @@
 const { json } = require("body-parser");
+const fs = require("fs");
+
 
 const customers = [
     {
@@ -151,10 +153,19 @@ const customers = [
 
 module.exports = {
     getAll: (req, res) => {
-        res.json(customers)
+        fs.readFile('controllers/custo.json', (err, data) => {
+            if (err) throw err;
+            console.log(JSON.parse(data))
+            let employees = JSON.parse(data)
+            res.status(200).json(employees)
+        });
+        
+        //res.json(customers)
     },
     findOne,
     deleteCustomer,
     createCustomer,
     editCustomer
+
+    
 }
