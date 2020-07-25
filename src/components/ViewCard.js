@@ -46,12 +46,17 @@ class ViewCard extends Component {
                 <h1> {this.state.robot.length > 0 ? `Greetings from ${this.state.robot[0].name}` : ''}</h1>
                 <section className='tc bg-light-red dib br3 pa3 ma2  bw2 shadow-S'>
 				<img src={`https://robohash.org/${this.props.match.params.id}?size=200x200`} alt='employees' />
-				<div className=''>
-					<h2>{this.state.robot[0].name ? this.state.robot[0].name: ''}</h2>
-					<p>{this.state.robot[0].email ? this.state.robot[0].email : ''}</p>
-                    <button onClick = {() => this.deleteHandler(this.state.id)}>Delete</button>
-				</div>
+				
 		        </section>
+                <div>
+                    <form method="POST" action={`http://localhost:3999/api/employee/edit/${this.state.id}`}>
+                        <input type="text" value={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
+                        <input type="text" value={this.state.robot[0].email ? this.state.robot[0].email: ''}
+                        name="email" readOnly/>
+                        <input type="submit" value="Edit"></input>
+                    </form>
+                    <button onClick = {() => this.deleteHandler(this.state.id)}>Delete</button>
+                </div>
 
             </React.Fragment>
             : <div><h1>Loading...</h1></div>
