@@ -6,6 +6,7 @@ class ViewCard extends Component {
         this.state = {
             robot: [],
             id: 0,
+            name: ''
         };
     }
 
@@ -25,7 +26,16 @@ class ViewCard extends Component {
     }
 
     deleteHandler (id) {
-        fetch(`http://localhost:3999/api/employee/${this.props.match.params.id}`)
+        fetch(`http://localhost:3999/api/employee/${this.props.match.params.id}`,{
+            headers: new Headers(
+                {
+                    "Access-Control-Allow-Origin" : "*",
+                    "Access-Control-Allow-Credentials" : true,
+                    "Access-Control-Allow-Methods" : "DELETE",
+                    "Access-Control-Allow-Headers" : "Origin, Content-Type, Accept"
+                }
+            ),
+        })
         .then(response => {
             return response.json();
         })
@@ -36,6 +46,33 @@ class ViewCard extends Component {
         }) 
         .catch (err => console.log(err))
 
+    }
+
+    handleSubmission (){
+        fetch(`http://localhost:3999/api/employee/edit/${this.state.id}`, {
+            method: "patch",
+            headers: new Headers(
+                {
+                    "Access-Control-Allow-Origin" : "*",
+                    "Access-Control-Allow-Credentials" : true,
+                    "Access-Control-Allow-Methods" : "PATCH",
+                    "Access-Control-Allow-Headers" : "Origin, Content-Type, Accept"
+                }
+            ),
+            body: {
+                "name": this.state.name
+            },
+        })
+        .then((res) => res.json())
+        .then(response => {
+            if (response.status !== 201){
+                console.log('not editted')
+            }
+            window.location.replace('/')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
     }
 
     render () {
@@ -49,10 +86,11 @@ class ViewCard extends Component {
 				
 		        </section>
                 <div className="container text-center col-lg-6">
-                    <form method="POST" action={`http://localhost:3999/api/employee/edit/${this.state.id}`}>
+                    <form>
                         <div className="form-group">
                             <label htmlFor="name"> Customer Name: </label>
-                            <input type="text" className="form-control" defaultValue={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
+                            <input type="text" className="form-control" 
+                            onChange={(event) => this.setState({name: event.target.value})} defaultValue={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
                         </div>
 
                         <div className="form-group">
@@ -61,9 +99,9 @@ class ViewCard extends Component {
                             name="email" readOnly/>
                         </div>
                         <div className="submit">
-                            <button type="submit" className="btn btn-primary">Edit</button>
                         </div>
                     </form>
+                    <button type="submit" onClick = {()=> this.handleSubmission()}className="btn btn-primary mr-2">Edit</button>
                     <button className="btn btn-danger mt-2 text-right" onClick = {() => this.deleteHandler(this.state.id)}>Delete User</button>
                 </div>
                 </div>
