@@ -3,7 +3,7 @@ module.exports = function (app) {
 
     app.post('/api/employee', employee.create);
     app.get('/api/employee', employee.findAll);
-    app.get('/api/employee', employee.find.One);
-    app.put('/api/emplyee', employee.update);
+    app.get('/api/employee', employee.findOne);
+    app.put('/api/employee', employee.update);
     app.delete('/api/employee', employee.delete);
 }

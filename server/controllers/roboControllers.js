@@ -1,3 +1,5 @@
+const { json } = require("body-parser");
+
 const customers = [
     {
         id: 1,
@@ -90,9 +92,69 @@ const customers = [
         email: 'whothis@gmail.com'
         }
     ];
+    /**
+     * Let user find an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+   const findOne = (req, res) => {
+       console.log(req.params.id)
+     let customer = customers.filter( (user) => user.id == (req.params.id))
+     console.log(customer)
+     res.json(customer)
+    }
+
+    /**
+     * Let user deletes an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+    const deleteCustomer = ( req, res ) => {
+        const id = req.params.id - 1;
+        let customersRemain = customers.splice(id, 1);
+        return res.json(customersRemain)
+    }
+
+    /**
+     * Let user create an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+    const createCustomer = (req , res ) => {
+        console.log('customer created')
+        const newCustomers = customers.push(res.body)
+        return res.json(newCustomers)
+
+    }
+
+    /**
+     * Let user edit an employee
+     * @param {object} req the body is only name
+     * @param {object} res
+     * @returns {object} json response
+    */
+   const editCustomer = (req , res ) => {
+    let id = req.params.id
+    
+    const editCustomer = customers.filter((customer) => {
+        customer.id === id ? customer[0].name = req.body : console.log('nothing to edit')
+    })
+    return res.json(newCustomers)
+
+}
+
+    
+
 
 module.exports = {
     getAll: (req, res) => {
         res.json(customers)
-    }
+    },
+    findOne,
+    deleteCustomer,
+    createCustomer,
+    editCustomer
 }

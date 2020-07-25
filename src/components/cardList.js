@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 
 
-const CardList = ({ robots }) => {
+const CardList = ({ robots, handleDelete }) => {
 
 	return (
 		<section>
@@ -14,6 +14,7 @@ const CardList = ({ robots }) => {
 							id={robots[i].id}
 							name={robots[i].name}
 							email={robots[i].email}
+							handleDelete = {(id) =>this.handleDelete(id)}
 						/>
 					)
 				})

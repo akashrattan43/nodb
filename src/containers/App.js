@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import {  Route, Switch,  } from 'react-router-dom';
 import CardList from '../components/cardList';
 import SearchBox from '../components/SearchBox';
 import './App.css';
 import Scroll from '../components/Scroll';
 import Footer from '../components/Footer'
+import ViewCard from '../components/ViewCard';
+
 
 
 class App extends Component {
@@ -30,7 +33,7 @@ class App extends Component {
 			searchField: event.target.value
 		})
 	}
-	handleDelete = () => {
+	handleDeleteRobot = () => {
 		alert('Button Clicked!')
 	}
 	handleDelete = robotId => {
@@ -48,17 +51,27 @@ class App extends Component {
 			return <h1>Loading</h1>
 		} else {
 			return (
-				<main className='tc'>
-					<h1 className='f1'>Office Employees</h1>
-					<SearchBox searchChange={this.onSearchChange} />
-					<Scroll>
-						<CardList robots={filteredRobots} />
+				
+			
+					<Switch>
+					<Route exact path='/view/:id' render={(props) => <ViewCard {...props} />} />
+						<Route exact path= "/">
+						<main className='tc'>
+							<h1 className='f1'>Office Employees</h1>
+							<SearchBox searchChange={this.onSearchChange} />
+							<Scroll>
+								<CardList robots={filteredRobots} handleDelete = {(id) => this.handleDelete(id)} />
+								
+								<button className='delete' onClick={() => this.handleDelete}>Delete</button>
+							</Scroll> 
+							<button className = " myButton"onClick={() => window.location.reload(false)}>RESET</button>
+							<Footer />
+						</main>
+						</Route>
+
 						
-						<button className='delete' onClick={this.handleDelete}>Delete</button>
-					</Scroll> 
-					<button className = " myButton"onClick={() => window.location.reload(false)}>RESET</button>
-					<Footer />
-				</main>
+					</Switch>
+				
 			)
 		}
 	}
