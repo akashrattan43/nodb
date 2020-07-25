@@ -41,23 +41,32 @@ class ViewCard extends Component {
     render () {
         return(
             this.state.robot.length > 0 ?
-            <React.Fragment>
-                
+            <React.Fragment >
+                <div className="text-center">
                 <h1> {this.state.robot.length > 0 ? `Greetings from ${this.state.robot[0].name}` : ''}</h1>
                 <section className='tc bg-light-red dib br3 pa3 ma2  bw2 shadow-S'>
 				<img src={`https://robohash.org/${this.props.match.params.id}?size=200x200`} alt='employees' />
 				
 		        </section>
-                <div>
+                <div className="container text-center col-lg-6">
                     <form method="POST" action={`http://localhost:3999/api/employee/edit/${this.state.id}`}>
-                        <input type="text" value={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
-                        <input type="text" value={this.state.robot[0].email ? this.state.robot[0].email: ''}
-                        name="email" readOnly/>
-                        <input type="submit" value="Edit"></input>
-                    </form>
-                    <button onClick = {() => this.deleteHandler(this.state.id)}>Delete</button>
-                </div>
+                        <div className="form-group">
+                            <label for="name"> Customer Name: </label>
+                            <input type="text" className="form-control" value={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
+                        </div>
 
+                        <div className="form-group">
+                            <label for="email"> Customer Email</label>
+                            <input type="text" className="form-control" value={this.state.robot[0].email ? this.state.robot[0].email: ''}
+                            name="email" readOnly/>
+                        </div>
+                        <div className="submit">
+                            <button type="submit" className="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                    <button className="btn btn-danger mt-2 text-right" onClick = {() => this.deleteHandler(this.state.id)}>Delete User</button>
+                </div>
+                </div>
             </React.Fragment>
             : <div><h1>Loading...</h1></div>
         )
