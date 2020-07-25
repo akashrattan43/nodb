@@ -51,12 +51,12 @@ class ViewCard extends Component {
                 <div className="container text-center col-lg-6">
                     <form method="POST" action={`http://localhost:3999/api/employee/edit/${this.state.id}`}>
                         <div className="form-group">
-                            <label for="name"> Customer Name: </label>
-                            <input type="text" className="form-control" value={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
+                            <label htmlFor="name"> Customer Name: </label>
+                            <input type="text" className="form-control" defaultValue={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
                         </div>
 
                         <div className="form-group">
-                            <label for="email"> Customer Email</label>
+                            <label htmlFor="email"> Customer Email</label>
                             <input type="text" className="form-control" value={this.state.robot[0].email ? this.state.robot[0].email: ''}
                             name="email" readOnly/>
                         </div>
