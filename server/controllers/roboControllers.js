@@ -102,9 +102,18 @@ const customers = [
     */
    const findOne = (req, res) => {
        console.log(req.params.id)
-     let customer = customers.filter( (user) => user.id == (req.params.id))
+       fs.readFile('controllers/custo.json', (err, data) => {
+        if (err) {
+            return res.status(400).send(err)
+        };
+        console.log(JSON.parse(data))
+        let employees = JSON.parse(data)
+        let customer = employees.filter( (user) => user.id == (req.params.id))
+        res.status(200).json(customer)
+    });
+
      console.log(customer)
-     res.json(customer)
+         
     }
 
     /**
@@ -115,9 +124,28 @@ const customers = [
     */
     const deleteCustomer = ( req, res ) => {
         const id = req.params.id-1;
-        let customersRemain = customers.splice(id, 1);
-        return res.json(customersRemain)
-    }
+        fs.readFile('controllers/custo.json', (err, data) => {
+            if (err) {
+                return res.status(400).send(err)
+            };
+            console.log(JSON.parse(data))
+            let employees = JSON.parse(data)
+            const deleteCustomer = employees.filter((customer) => {
+                customer.id !== id
+            })
+            if (deleteCustomer.length > 0) {
+    
+                 let newDetails = JSON.stringify(deleteCustomer, null, '\t')
+    
+                 fs.writeFile('controllers/custo.json', newDetails, function (err) {
+                    if (err) throw err;
+                    console.log('deleted!');
+                    res.status(200).json({"message": 'Deleted Successfully'})
+                  });
+        }
+    })
+        
+    };
 
     /**
      * Let user create an employee
