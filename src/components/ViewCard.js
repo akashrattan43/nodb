@@ -6,6 +6,7 @@ class ViewCard extends Component {
         this.state = {
             robot: [],
             id: 0,
+            name: ''
         };
     }
 
@@ -38,21 +39,55 @@ class ViewCard extends Component {
 
     }
 
+    handleSubmission (){
+        fetch(`http://localhost:3999/api/employee/edit/${this.state.id}`, {
+            method: "patch",
+            body: {
+                "name": this.state.name
+            },
+        })
+        .then((res) => res.json())
+        .then(response => {
+            if (response.status !== 201){
+                console.log('not editted')
+            }
+            window.location.replace('/')
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
     render () {
         return(
             this.state.robot.length > 0 ?
-            <React.Fragment>
-                
+            <React.Fragment >
+                <div className="text-center">
                 <h1> {this.state.robot.length > 0 ? `Greetings from ${this.state.robot[0].name}` : ''}</h1>
                 <section className='tc bg-light-red dib br3 pa3 ma2  bw2 shadow-S'>
 				<img src={`https://robohash.org/${this.props.match.params.id}?size=200x200`} alt='employees' />
-				<div className=''>
-					<h2>{this.state.robot[0].name ? this.state.robot[0].name: ''}</h2>
-					<p>{this.state.robot[0].email ? this.state.robot[0].email : ''}</p>
-                    <button onClick = {() => this.deleteHandler(this.state.id)}>Delete</button>
-				</div>
+				
 		        </section>
+                <div className="container text-center col-lg-6">
+                    <form>
+                        <div className="form-group">
+                            <label htmlFor="name"> Customer Name: </label>
+                            <input type="text" className="form-control" 
+                            onChange={(event) => this.setState({name: event.target.value})} defaultValue={this.state.robot[0].name ? this.state.robot[0].name: ''} name="name" />
+                        </div>
 
+                        <div className="form-group">
+                            <label htmlFor="email"> Customer Email</label>
+                            <input type="text" className="form-control" value={this.state.robot[0].email ? this.state.robot[0].email: ''}
+                            name="email" readOnly/>
+                        </div>
+                        <div className="submit">
+                        </div>
+                    </form>
+                    <button type="submit" onClick = {()=> this.handleSubmission()}className="btn btn-primary mr-2">Edit</button>
+                    <button className="btn btn-danger mt-2 text-right" onClick = {() => this.deleteHandler(this.state.id)}>Delete User</button>
+                </div>
+                </div>
             </React.Fragment>
             : <div><h1>Loading...</h1></div>
         )

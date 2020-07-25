@@ -1,4 +1,6 @@
 const { json } = require("body-parser");
+const fs = require("fs");
+
 
 const customers = [
     {
@@ -100,9 +102,19 @@ const customers = [
     */
    const findOne = (req, res) => {
        console.log(req.params.id)
-     let customer = customers.filter( (user) => user.id == (req.params.id))
-     console.log(customer)
-     res.json(customer)
+       let id = req.params.id
+       fs.readFile('controllers/custo.json', (err, data) => {
+        if (err) {
+            return res.status(400).send(err)
+        };
+        console.log(JSON.parse(data))
+        let employees = JSON.parse(data)
+        let customer = employees.filter( (user) => user.id == id)
+        res.status(200).json(customer)
+    });
+
+     
+         
     }
 
     /**
@@ -112,10 +124,32 @@ const customers = [
      * @returns {object} json response
     */
     const deleteCustomer = ( req, res ) => {
-        const id = req.params.id - 1;
-        let customersRemain = customers.splice(id, 1);
-        return res.json(customersRemain)
+        const id = req.params.id-1;
+        fs.readFile('controllers/custo.json', (err, data) => {
+            if (err) {
+                return res.status(400).send(err)
+            } else {
+            console.log(JSON.parse(data))
+            let employees = JSON.parse(data)
+            const deleteCustomer = employees.filter((customer) => {
+                customer.id !== id
+            })
+            if (deleteCustomer.length > 0) {
+    
+                let newDetails = JSON.stringify(deleteCustomer, null, '\t')
+   
+                fs.writeFile('controllers/custo.json', newDetails, function (err) {
+                   if (err) return res.status(400).json({err});
+                   console.log('deleted!');
+                   res.status(200).json({"message": 'Deleted Successfully'})
+                 });
+       }
     }
+            
+    })
+    
+        
+    };
 
     /**
      * Let user create an employee
@@ -125,8 +159,15 @@ const customers = [
     */
     const createCustomer = (req , res ) => {
         console.log('customer created')
+        fs.appendFile('controllers/custo.json', JSON.stringify(req.body, null, '\t'), function (err) {
+            if (err) {
+                return res.status(404).json({err})
+            };
+            console.log('Updated!');
+            res.status(201).json({message: "new user created"})
+          });
         const newCustomers = customers.push(res.body)
-        return res.json(newCustomers)
+
 
     }
 
@@ -138,11 +179,37 @@ const customers = [
     */
    const editCustomer = (req , res ) => {
     let id = req.params.id
-    
-    const editCustomer = customers.filter((customer) => {
-        customer.id === id ? customer[0].name = req.body : console.log('nothing to edit')
+    fs.readFile('controllers/custo.json', (err, data) => {
+        if (err) {
+            return res.status(400).send(err)
+        };
+        console.log(JSON.parse(data))
+        let employees = JSON.parse(data)
+        const editCustomer = employees.filter((customer) => {
+            customer.id === id
+        })
+        if (editCustomer.length > 0) {
+            editCustomer[0].name = req.body.name
+
+            let newData = employees.splice(id-1, editCustomer, 1)
+
+            let newDetails = JSON.stringify(newData, null, '\t')
+
+            fs.writeFile('controllers/custo.json', newDetails, function (err) {
+               if (err) return res.status(400).json({err});
+               console.log('Replaced!');
+               res.status(201).json({"message": 'Edited Successfully'})
+             });
+            
+       }else{
+           console.log('nothing to edit')
+           return res.status(404).json({"message": "could not edit customer"})
+       }
+       
+
     })
-    return res.json(newCustomers)
+    
+    //return res.json(newCustomers)
 
 }
 
@@ -151,10 +218,21 @@ const customers = [
 
 module.exports = {
     getAll: (req, res) => {
-        res.json(customers)
+        fs.readFile('controllers/custo.json', (err, data) => {
+            if (err) {
+                return res.status(400).send(err)
+            };
+            console.log(JSON.parse(data))
+            let employees = JSON.parse(data)
+            res.status(200).json(employees)
+        });
+        
+        //res.json(customers)
     },
     findOne,
     deleteCustomer,
     createCustomer,
     editCustomer
+
+    
 }
