@@ -90,9 +90,34 @@ const customers = [
         email: 'whothis@gmail.com'
         }
     ];
+    /**
+     * Let user find an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+   const findOne = (req, res) => {
+       console.log(req.params.id)
+     let customer = customers.filter( (user) => user.id == (req.params.id))
+     console.log(customer)
+     res.json(customer)
+    }
 
+    /**
+     * Let user deletes an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+    const deleteCustomer = ( req, res ) => {
+        const id = req.params.id - 1;
+        let customersRemain = customers.splice(id, 1);
+        res.json(customersRemain)
+    }
 module.exports = {
     getAll: (req, res) => {
         res.json(customers)
-    }
+    },
+    findOne,
+    deleteCustomer
 }

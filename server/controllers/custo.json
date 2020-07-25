@@ -1,12 +1,12 @@
 
   {
-    id: 1,
-    name: 'sony singh',
-    username: 'sony',
-    email: 'Sonysingh@gmail.com'
+    "id": 1,
+    "name": "sony singh",
+    "username": "sony",
+    "email": "Sonysingh@gmail.com"
   },
   {
-    id: 2,
+    "id": 2,
     name: 'holy melnf',
     username: 'holy',
     email: 'holymelnf@gmail.com'
