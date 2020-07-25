@@ -1,3 +1,5 @@
+const { json } = require("body-parser");
+
 const customers = [
     {
         id: 1,
@@ -112,12 +114,44 @@ const customers = [
     const deleteCustomer = ( req, res ) => {
         const id = req.params.id - 1;
         let customersRemain = customers.splice(id, 1);
-        res.json(customersRemain)
+        return res.json(customersRemain)
     }
+
+    /**
+     * Let user create an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+    const createCustomer = (req , res ) => {
+        console.log('customer created')
+        const newCustomers = customer.push(res.body)
+        return res.json(newCustomers)
+
+    }
+
+    /**
+     * Let user edit an employee
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} json response
+    */
+   const editCustomer = (req , res ) => {
+    console.log('customer created')
+    const newCustomers = customer.push(res.body)
+    return res.json(newCustomers)
+
+}
+
+    
+
+
 module.exports = {
     getAll: (req, res) => {
         res.json(customers)
     },
     findOne,
-    deleteCustomer
+    deleteCustomer,
+    createCustomer,
+    editCustomer
 }
